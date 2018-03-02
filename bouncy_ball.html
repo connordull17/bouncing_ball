@@ -3,25 +3,75 @@
 <head>
   <title>Bouncing Ball</title>
   <style type="text/css">
-    canvas {
-      border: solid 1px #000;
-    }
+    #canvas {
+    display: block;
+      border: 1px solid black;
+      margin: 50px auto;
+}
   </style>
+  <canvas id="canvas"></canvas>
 </head>
 <script>
-  var context;
-  function init()
-  {
-    context= canvas.getContext('2d');
+  
+var canvas = document.getElementById("canvas"),
+    context = canvas.getContext("2d");
+
+
+var W = 350,
+    H = 450;
+
+
+canvas.height = H; canvas.width = W;
+
+
+
+var ball = {},
+    gravity = 4.8;
+    bounceFactor = .9;
+
+ball = {
+  x: W/2,
+  y: 50,
+  
+  radius: 15,
+  color: "red",
+  
+  // Velocity components
+  vx: 0,
+  vy: 1,
+  
+  draw: function() {
     context.beginPath();
-    context.fillStyle="blue";
-    // Draws a circle of radius 20 at the coordinates 100,100 on the canvas
-    context.arc(100,100,20,0,Math.PI*2,true); context.closePath();
+    context.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+    context.fillStyle = this.color;
     context.fill();
+    context.closePath();
   }
+};
+
+function clearCanvas() {
+  context.clearRect(0, 0, W, H);
+}
+
+function update() {
+  clearCanvas();
+  ball.draw();
+  
+  // make the ball move 
+  ball.y += ball.vy;
+  // speed
+  ball.vy += gravity;
+  //bounce back
+  if(ball.y + ball.radius > H) {
+    ball.y = H - ball.radius;
+    ball.vy *= -bounceFactor;
+  }
+}
+
+//animation
+setInterval(update, 1000/60);
 
 </script>
 <body onLoad="init();">
-  <canvas id="canvas" width="600" height="400" ></canvas>
 </body>
 </html>
