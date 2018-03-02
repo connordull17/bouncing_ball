@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bouncing Ball</title>
+  <style type="text/css">
+    canvas {
+      border: solid 1px #000;
+    }
+  </style>
+</head>
+<script>
+  var context;
+  function init()
+  {
+    context= canvas.getContext('2d');
+    context.beginPath();
+    context.fillStyle="blue";
+    // Draws a circle of radius 20 at the coordinates 100,100 on the canvas
+    context.arc(100,100,20,0,Math.PI*2,true); context.closePath();
+    context.fill();
+  }
+
+</script>
+<body onLoad="init();">
+  <canvas id="canvas" width="600" height="400" ></canvas>
+</body>
+</html>
